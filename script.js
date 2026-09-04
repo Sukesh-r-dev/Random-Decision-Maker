@@ -1,0 +1,96 @@
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const colors = ['#f38ba8', '#fab387', '#f9e2af', '#a6e3a1', '#94e2d5', '#89b4fa', '#cba6f7'];
+let isSpinning = false;
+let currentAngle = 0;
+
+// Load saved options or set defaults
+window.onload = () => {
+  const saved = localStorage.getItem('decision_options');
+  if (saved) document.getElementById('options-input').value = saved;
+  drawWheel();
+};
+
+function getOptions() {
+  const text = document.getElementById('options-input').value;
+  localStorage.setItem('decision_options', text); // Save to LocalStorage
+  return text.split('\n').map(o => o.trim()).filter(o => o.length > 0);
+}
+
+function drawWheel() {
+  const options = getOptions();
+  const numOptions = options.length;
+  const arcSize = (2 * Math.PI) / (numOptions || 1);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  if (numOptions === 0) return;
+
+  options.forEach((opt, i) => {
+    const angle = currentAngle + i * arcSize;
+    // Draw slice
+    ctx.beginPath();
+    ctx.fillStyle = colors[i % colors.length];
+    ctx.moveTo(150, 150);
+    ctx.arc(150, 150, 150, angle, angle + arcSize);
+    ctx.fill();
+
+    // Draw text
+    ctx.save();
+    ctx.translate(150, 150);
+    ctx.rotate(angle + arcSize / 2);
+    ctx.textAlign = "right";
+    ctx.fillStyle = "#11111b";
+    ctx.font = "bold 14px sans-serif";
+    ctx.fillText(opt.length > 12 ? opt.substring(0, 10) + '...' : opt, 130, 5);
+    ctx.restore();
+  });
+}
+
+function spinWheel() {
+  const options = getOptions();
+  if (options.length < 2 || isSpinning) return;
+
+  isSpinning = true;
+  document.getElementById('result').innerText = '';
+  const spinDegrees = Math.floor(Math.random() * 360) + 1440; // At least 4 full spins
+  const duration = 3000; // 3 seconds
+  const start = performance.now();
+
+  function animate(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease-out cubic animation formula
+    const easeOut = 1 - Math.pow(1 - progress, 3);
+    currentAngle = (easeOut * (spinDegrees * Math.PI / 180));
+    drawWheel();
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      isSpinning = false;
+      calculateWinner(options);
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+function calculateWinner(options) {
+  const numOptions = options.length;
+  const arcSize = (2 * Math.PI) / numOptions;
+  
+  // Normalize rotation angle
+  let normalizedAngle = (3 * Math.PI / 2 - currentAngle) % (2 * Math.PI);
+  if (normalizedAngle < 0) normalizedAngle += 2 * Math.PI;
+
+  const winnerIndex = Math.floor(normalizedAngle / arcSize);
+  const winner = options[winnerIndex];
+
+  document.getElementById('result').innerText = `🎉 ${winner}`;
+
+  // Add to history list
+  const historyList = document.getElementById('history-list');
+  const li = document.createElement('li');
+  li.innerText = `${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${winner}`;
+  historyList.prepend(li);
+}
