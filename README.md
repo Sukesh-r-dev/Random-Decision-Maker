@@ -1,24 +1,39 @@
+<div align="center">
+
 # 🎡 Random Decision Maker
 
-A lightweight, interactive web application built to help you make quick decisions—whether you're picking what to eat for dinner, choosing a game to play, or selecting a random team member. 
+**A lightweight, interactive, and smooth web app to help you settle debates and make decisions instantly.**
 
-Built with pure **HTML5, CSS3, and JavaScript**, featuring a visual spinning wheel, custom options, local storage persistence, and a live decision history log.
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)](#)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)](#)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](#)
+
+[Features](#-key-features) • [Quick Start](#-quick-start) • [How It Works](#-how-it-works) • [Tech Stack](#-tech-stack)
+
+</div>
 
 ---
 
-## ✨ Features
+## 🌟 Overview
 
-* **Interactive Canvas Wheel:** Smooth physics-based spin animations using easing functions.
-* **Custom Inputs:** Add any list of options (one per line) and watch the wheel update dynamically in real time.
-* **Local Storage Sync:** Automatically saves your options in your browser so you don't lose them when you refresh.
-* **Decision History:** Displays a timestamped log of recent choices made during your session.
-* **Zero Dependencies:** Pure vanilla code with no external frameworks or library requirements.
+Can't decide what to eat for dinner, which game to play, or who goes first in group activities? **Random Decision Maker** solves option paralysis with an engaging visual wheel. Customize your list, click spin, and let physics handle the rest!
+
+---
+
+## ✨ Key Features
+
+* 🎯 **Dynamic Canvas Wheel:** Smooth physics-based spin animation powered by custom cubic easing functions.
+* ⚡ **Real-Time Rendering:** Type your choices and watch the wheel slices automatically re-render live.
+* 💾 **Local Storage Sync:** Automatically saves your options locally so you never lose your lists upon refreshing.
+* 📜 **Decision History Log:** Keeps a live, timestamped session history of past results.
+* 🚀 **Zero Dependencies:** Built purely with Vanilla HTML, CSS, and JS — lightweight with instantaneous load times.
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Run Locally
-1. Clone or download this repository:
-   ```bash
-   git clone [https://github.com/Sukesh-r-dev/Random-Decision-Maker.git](https://github.com/Sukesh-r-dev/Random-Decision-Maker.git)
+### 1. Clone the Repository
+```bash
+git clone [https://github.com/Sukesh-r-dev/Random-Decision-Maker.git](https://github.com/Sukesh-r-dev/Random-Decision-Maker.git)
+cd Random-Decision-Maker
